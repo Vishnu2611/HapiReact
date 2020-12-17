@@ -1,0 +1,27 @@
+version: '2.1'
+
+networks:
+  test:
+
+services:
+  react-client:
+    image: react-hapi-test
+    container_name: react.test.app
+    restart: always
+    build:
+      context: ./client
+      dockerfile: client.dockerfile
+    ports:
+      - 4200:80
+    networks:
+      - test
+
+  hapi-server:
+    image: server-hapi-test
+    container_name: hapi.test.app
+    restart: always
+    build:
+      context: .
+      dockerfile: server.dockerfile
+    networks:
+      - test
